@@ -15,7 +15,6 @@ var bombsList = []; //empty array
 function randomNums(min, max) { //ranged random numbers function
   var result = Math.floor(Math.random() * (max - min + 1)) + min;
   return result;
-
 }
 
 // Il computer deve generare 16 numeri casuali tra 1 e 100.
@@ -30,7 +29,6 @@ function array(list, element) {
     }
   }
   return present;
-
 }
 
 while (bombsList.length < 16) {
@@ -42,3 +40,48 @@ while (bombsList.length < 16) {
 }
 bombsList.sort(function(a, b){return a-b});
 console.log(bombsList);
+
+// Chiedere all’utente (100 - 16) per 84 volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
+var maxNumber = 100;
+var userChosenNumbers = [];
+var userNumber = parseInt(prompt("Inserisci un numero tra 1 e " + maxNumber));
+
+do {
+  if (userNumber <= 0) {
+    alert('You cannot enter a number less than 1. Try again');
+  } else if (userNumber > maxNumber) {
+    alert('You cannot enter a number more than ' + maxNumber + '. Try again');
+  } else if (isNaN(userNumber)) {
+    alert('You cannot enter a word or any other special character')
+  }
+
+} while (userNumber <= 0 || userNumber > maxNumber || isNaN(userNumber));
+
+
+
+var verifyUserNum = isPresent(userNumber, userChosenNumbers);
+
+if (verifyUserNum === false) {
+  userChosenNumbers.push(userNumber);
+} else if (verifyUserNum === true) {
+  alert('You have already entered this number!')
+}
+
+for (var b = 0; b < bombsList.length; b++) {
+  if (userNumber === bombsList[b]) {
+    alert('KABOOM!\nThe Number ' + userNumber + ' is a bomb!\nYou lose.')
+  }
+}
+
+
+function isPresent(par1, par2) {
+  var result = false;
+
+  for (var p = 0; p < par2.length; p++) {
+    if (par1 === par2[p]) {
+      result === true;
+    }
+    return result;
+  }
+}
+console.log(userNumber);
