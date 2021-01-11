@@ -27,7 +27,17 @@ function randomNums(min, max) { //ranged random numbers function
   return result;
 }
 
+
 /* END FUNCTIONS */
+
+
+/*
+BONUS: (da fare solo se funziona tutto il resto)
+all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
+con difficoltà 0 => tra 1 e 100
+con difficoltà 1 =>  tra 1 e 80
+con difficoltà 2 => tra 1 e 50
+*/
 
 
 
@@ -39,7 +49,7 @@ var bombsList = []; //empty array for 'bomb numbers'
 while (bombsList.length < 16) {
   var randomNum = randomNums(1, 100);
 
-  if (isPresent(bombsList, randomNum) === false) {
+  if (!isPresent(bombsList, randomNum)) {
     bombsList.push(randomNum);
   }
 }
@@ -56,7 +66,8 @@ var maxValue = 100;
 var userList = [];
 blowedBomb = false;
 
-while (userList.length < maxValue && blowedBomb === false) {
+// La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
+while (userList.length < maxValue - 98 && blowedBomb === false) { //exit condition from while cycle if user hit a bomb or guesses every correct number
 
   do {
 
@@ -72,16 +83,18 @@ while (userList.length < maxValue && blowedBomb === false) {
 
   } while (userNumber <= 0 || userNumber >= maxValue || isNaN(userNumber));
 
-  var matchedNums = isPresent(userNumber, userList);
 
   // I numeri non possono essere duplicati (tadaaa!)
-  if (matchedNums === false) {
+  var matchedNums = isPresent(userNumber, userList);
+
+  if (!matchedNums) {
     userList.push(userNumber);
   } else if (matchedNums === true) {
     alert('This number has been already entered');
   }
 
-// Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
+  // Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
+
   for (var k = 0; k < bombsList.length; k++) {
     if (userNumber === bombsList[k]) {
       alert('ARGH!\nThe number ' + userNumber + ' was a BOMB!\nKABOOOM!\nYou lose');
@@ -96,17 +109,21 @@ userList.sort(function(a, b) {
 });
 console.log('User\'s numbers list:', userList);
 
+
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
 
-if (userList.length <= 1) {
-  alert('Puah! You suck! Your Score is ZERO');
-  console.log('Puah! You suck! Your Score is ZERO');
-} else if (userList.length < 6) {
-  alert('Hmm... could be better.\nYour score is: ' + parseInt(userList.length - 1) + ' points');
-  console.log('Hmm... could be better.\nYour score is: ', userList.length - 1);
-} else {
-  alert('Well done! Your score is: ' + parseInt(userList.length - 1) + ' points');
-  console.log('Well done! Your score is:', userList.length - 1);
+if (userList.length === maxValue - 98) {
+  alert('No more numbers left! You won!');
+  console.log('You won!');
 }
 
-// La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
+if (userList.length <= 5) {
+  alert('Puah! You suck! Your Score is: ' + parseInt(userList.length) );
+  console.log('Puah! You suck! Your Score is: ' + parseInt(userList.length) );
+} else if (userList.length < 20) {
+  alert('Hmm... could be better.\nYour score is: ' + parseInt(userList.length) + ' points');
+  console.log('Hmm... could be better.\nYour score is: ', userList.length);
+} else {
+  alert('Well done! Your score is: ' + parseInt(userList.length) + ' points');
+  console.log('Well done! Your score is:', userList.length);
+}
