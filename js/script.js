@@ -53,7 +53,7 @@ if (conf === true) {
       confirm('You cannot enter a number higher than 2')
     } else if (isNaN(diffLvl)) {
       confirm('Invalid input.\nTry Again')
-    } 
+    }
   }
 
   var bombsList = []; //empty array for 'bomb numbers'
@@ -61,7 +61,7 @@ if (conf === true) {
   var maxValue;
 
 
-  while (bombsList.length < 26) {
+  while (bombsList.length < 16) {
 
     switch (diffLvl) {
       case 0:
