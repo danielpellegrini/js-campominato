@@ -132,10 +132,6 @@ if (conf === true) {
     if (!matchedNums) {
       userList.push(userNumber);
       console.log(userNumber);
-      // var node = document.createElement('li');
-      // var textnode = document.createTextNode(userNumber);
-      // node.appendChild(textnode);
-      // document.getElementById('entered-numbers').appendChild(node);
     } else if (matchedNums === true) {
       console.error('Number ' + userNumber + ' has been already entered');
       confirm('Number ' + userNumber + ' has been already entered');
